@@ -10,7 +10,7 @@ inline int minRepresentation(char* S, int plen = -1)
     if (plen = -1)
         plen = strlen(S);
 
-    while (k < plen - 1 && i < plen && j < plen)
+    while (k < plen - 1)
     {
         int dis = S[(i + k) % plen] - S[(j + k) % plen];
 
@@ -40,7 +40,7 @@ inline int maxRepresentation(char* S, int plen = -1)
     if (plen = -1)
         plen = strlen(S);
 
-    while (k < plen - 1 && i < plen && j < plen)
+    while (k < plen - 1)
     {
         int dis = S[(i + k) % plen] - S[(j + k) % plen];
 
