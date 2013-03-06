@@ -1,0 +1,73 @@
+// About the algorithm : http://uranux.com/res/algorithm/扩展KMP算法.ppt
+
+const int maxn = 1100100;
+
+char A[maxn];
+char B[maxn];
+int P[maxn];
+int EX[maxn];
+
+void ex_preprocess(char* B, int* P, int m = -1)
+{
+    int a = 0, p, L;
+
+    if (m == -1)
+        m = strlen(B);
+
+    P[0] = m;
+    while (a + 1 < m && B[a] == B[a + 1])
+        a++;
+    P[1] = a;
+    a = 1;
+
+    for (int k = 2; k < m; k++)
+    {
+        p = a + P[a] - 1;
+        L = P[k - a];
+
+        if (k + L - 1 >= p)
+        {
+            int j = (p - k + 1) > 0 ? (p - k + 1) : 0;
+
+            while (k + j < m && B[j] == B[k + j])
+                j++;
+            P[k] = j;
+            a = k;
+        }
+        else
+            P[k] = L;
+    }
+}
+
+void ex_kmp(char* A, char* B, int* P, int* EX, int n = -1, int m = -1)
+{
+    int a = 0, p, L;
+
+    if (n == -1)
+        n = strlen(A);
+    if (m == -1)
+        m = strlen(B);
+
+    while (a < m && B[a] == A[a])
+        a++;
+    EX[0] = a;
+    a = 0;
+
+    for (int k = 1; k < n; k++)
+    {
+        p = a + EX[a] - 1;
+        L = P[k - a];
+
+        if (k + L - 1 >= p)
+        {
+            int j = (p - k + 1) > 0 ? (p - k + 1) : 0;
+
+            while (k + j < n && B[j] == A[k + j])
+                j++;
+            EX[k] = j;
+            a = k;
+        }
+        else
+            EX[k] = L;
+    }
+}
