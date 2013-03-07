@@ -19,7 +19,7 @@ typedef struct __node
 }
 Node;
 
-Node* root;
+Node* rt;
 
 void createTree(Node** root)
 {
@@ -93,11 +93,11 @@ int query(Node* root, char* str, int n = -1)
 
 int main()
 {
-    createTree(&root);
-    insert(&root, "hello");
-    printf("%d\n", query(root, "hello"));
-    printf("%d\n", query(root, "hard"));
-    printf("%d\n", query(root, "he"));
-    deleteTree(root);
+    createTree(&rt);
+    insert(&rt, "hello");
+    printf("%d\n", query(rt, "hello"));
+    printf("%d\n", query(rt, "hard"));
+    printf("%d\n", query(rt, "he"));
+    deleteTree(rt);
     return 0;
 }
