@@ -1,0 +1,82 @@
+// Use malloc and node struct to make the tree dynamic
+// Notice the usage of secondary pointer
+
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+using namespace std;
+
+typedef int Type;
+
+const int char_count = 26;
+const char base_char = 'a';
+
+typedef struct __node
+{
+    Type val;
+    struct __node* next[char_count];
+}
+Node;
+
+Node* root;
+
+void createTree(Node** root)
+{
+    *root = (Node*)malloc(sizeof(Node));
+    for (int i = 0; i < char_count; i++)
+        (*root)->next[i] = NULL;
+}
+
+void deleteTree(Node* root)
+{
+    if (root == NULL)
+        return;
+    for (int i = 0; i < char_count; i++)
+    {
+        if (root->next[i] != NULL)
+            deleteTree(root->next[i]);
+    }
+    free(root);
+}
+
+void insert(Node** root, char* str, int n = -1)
+{
+    if (n == -1)
+        n = strlen(str);
+    for (int i = 0; i < n; i++)
+    {
+        (*root)->next[str[i] - base_char] = (Node*)malloc(sizeof(Node));
+        root = &((*root)->next[str[i] - base_char]);
+        for (int j = 0; j < char_count; j++)
+            (*root)->next[j] = NULL;
+    }
+}
+
+int query(Node* root, char* str, int n = -1)
+{
+    if (n == -1)
+        n = strlen(str);
+    for (int i = 0; i < n; i++)
+    {
+        if (root->next[str[i] - base_char] != NULL)
+            root = root->next[str[i] - base_char];
+        else
+            break;
+
+        if (i == n - 1)
+            return 1;
+    }
+    return 0;
+}
+
+int main()
+{
+    createTree(&root);
+    insert(&root, "hello");
+    printf("%d\n", query(root, "hello"));
+    printf("%d\n", query(root, "hard"));
+    printf("%d\n", query(root, "he"));
+    deleteTree(root);
+    return 0;
+}
