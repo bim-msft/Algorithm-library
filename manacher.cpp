@@ -27,7 +27,7 @@ int Manacher(char* str, int n)
     int id = 1;
     int retVal = 1;
     n <<= 1;
-    for (int i = 1; i <= n; i++)
+    for (int i = 2; i <= n - 1; i++)
     {
         if (mx > i)
             P[i] = _Min(P[(id << 1) - i], mx - i);
