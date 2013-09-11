@@ -7,7 +7,7 @@ inline int minRepresentation(char* S, int plen = -1)
     int i = 0, j = 1;
     int k = 0;
 
-    if (plen = -1)
+    if (plen == -1)
         plen = strlen(S);
 
     while (k < plen - 1 && i < plen && j < plen)
@@ -37,7 +37,7 @@ inline int maxRepresentation(char* S, int plen = -1)
     int i = 0, j = 1;
     int k = 0;
 
-    if (plen = -1)
+    if (plen == -1)
         plen = strlen(S);
 
     while (k < plen - 1 && i < plen && j < plen)
